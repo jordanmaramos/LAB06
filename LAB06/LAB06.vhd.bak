@@ -1,0 +1,37 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity contador is
+port(
+	CLK: in bit; --entrada de clock
+	ld: in bit; --carrega os dados
+	reset: in bit;
+	data: in integer range 15 downto 0; -- entrada de dados
+	q: out integer range 15 downto 0); --saída de dados
+END contador;
+
+architecture main of contador is 
+begin 
+
+process (CLK, reset)
+variable qsignal: integer range 15 downto 0; --variavel auxiliar para saida
+
+begin 
+	if(reset ='1')then
+		qsignal:= 0;
+	
+	elsif(CLK' event and CLK='1')then
+		if(ld = '1') then
+			qv := data;
+		else
+			if(qv >= 9) then
+				qv := 0;
+			else
+				qv := qv + 1;
+			end if;
+		end if;
+	end if;
+	q <= qv;
+end process;
+
+end;
